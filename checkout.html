@@ -160,6 +160,8 @@
     </button>
 <button type="button" class="order-btn" id="payBtn">
   PAY NOW ₹6,499
+</button><button type="button" class="order-btn" id="paidBtn">
+  I HAVE PAID - SEND ORDER
 </button>
     <a href="index.html" class="back">
       ← BACK TO SHOP
@@ -229,6 +231,21 @@ document.getElementById("payBtn").addEventListener("click", function () {
 
   window.location.href = upiURL;
 
+});document.getElementById("paidBtn").addEventListener("click", function () {
+
+  const message =
+    "🛍️ VÉLORA PAYMENT ORDER\n\n" +
+    "Product: " + productName + "\n" +
+    "Price: " + productPrice + "\n\n" +
+    "Customer: " + name + "\n" +
+    "Phone: " + phone + "\n" +
+    "Address: " + address;
+
+  const whatsappURL =
+    "https://wa.me/919030779918?text=" +
+    encodeURIComponent(message);
+
+  window.location.href = whatsappURL;
 });
   </script>
 
