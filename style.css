@@ -1,75 +1,370 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-font-family:Arial,sans-serif;
-background:#080808;
-color:white;
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #080808;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
 }
-.navbar{
-position:fixed;
-top:0;
-width:100%;
-height:70px;
-padding:0 20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-z-index:10;
+
+body {
+  overscroll-behavior: none;
 }
-.logo{
-font-size:24px;
-letter-spacing:6px;
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 80px;
+
+  padding: 0 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 20;
+
+  mix-blend-mode: difference;
 }
-.nav-icons{
-display:flex;
-gap:18px;
-font-size:24px;
+
+.logo {
+  font-family: Georgia, serif;
+
+  font-size: 25px;
+  letter-spacing: 7px;
+
+  font-weight: 500;
 }
-.fashion-feed{
-height:100vh;
-overflow-y:auto;
-scroll-snap-type:y mandatory;
+
+.icons {
+  display: flex;
+  gap: 15px;
 }
-.dress-card{
-height:100vh;
-scroll-snap-align:start;
-display:flex;
-align-items:flex-end;
-padding:30px;
-background:linear-gradient(to top,#000 5%,transparent),radial-gradient(circle,#555,#111);
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+
+  color: white;
+
+  font-size: 25px;
+
+  cursor: pointer;
 }
-.dress-card:nth-child(2){
-background:linear-gradient(to top,#000 5%,transparent),radial-gradient(circle,#7a6245,#111);
+
+
+/* SWIPE TEXT */
+
+.scroll-hint {
+  position: fixed;
+
+  right: 25px;
+  bottom: 35px;
+
+  z-index: 20;
+
+  font-size: 10px;
+
+  letter-spacing: 4px;
+
+  writing-mode: vertical-rl;
+
+  opacity: 0.7;
 }
-.dress-card:nth-child(3){
-background:linear-gradient(to top,#000 5%,transparent),radial-gradient(circle,#333,#000);
+
+.scroll-hint span {
+  display: block;
+
+  margin-top: 8px;
+
+  font-size: 18px;
+
+  animation: arrowMove 1.5s infinite;
 }
-.dress-info{
-margin-bottom:40px;
+
+
+/* FEED */
+
+.fashion-feed {
+  width: 100%;
+  height: 100vh;
+
+  overflow-y: scroll;
+
+  scroll-snap-type: y mandatory;
+
+  scrollbar-width: none;
 }
-.collection{
-letter-spacing:3px;
-font-size:12px;
-margin-bottom:15px;
+
+.fashion-feed::-webkit-scrollbar {
+  display: none;
 }
-h1{
-font-family:Georgia,serif;
-font-size:52px;
-margin-bottom:18px;
+
+
+/* CARD */
+
+.dress-card {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  scroll-snap-align: start;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: flex-end;
 }
-.price{
-font-size:22px;
-margin-bottom:22px;
+
+
+/* IMAGE */
+
+.dress-image {
+  position: absolute;
+
+  inset: 0;
+
+  background-position: center;
+  background-size: cover;
+
+  transform: scale(1.05);
+
+  transition: transform 1.5s ease;
 }
-button{
-padding:14px 22px;
-background:transparent;
-color:white;
-border:1px solid white;
+
+
+/* Dress Images */
+
+.dress-one .dress-image {
+  background-image:
+    url("https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1400&q=85");
+}
+
+.dress-two .dress-image {
+  background-image:
+    url("https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1400&q=85");
+}
+
+.dress-three .dress-image {
+  background-image:
+    url("https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1400&q=85");
+}
+
+
+/* DARK OVERLAY */
+
+.overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.9),
+      rgba(0, 0, 0, 0.15) 65%,
+      rgba(0, 0, 0, 0.25)
+    );
+}
+
+
+/* CONTENT */
+
+.dress-info {
+  position: relative;
+
+  z-index: 5;
+
+  width: 100%;
+
+  padding: 0 7% 8%;
+
+  transform: translateY(40px);
+
+  opacity: 0;
+
+  transition:
+    transform 1s ease,
+    opacity 1s ease;
+}
+
+
+/* ACTIVE CARD */
+
+.dress-card.active .dress-info {
+  transform: translateY(0);
+
+  opacity: 1;
+}
+
+.dress-card.active .dress-image {
+  transform: scale(1);
+}
+
+
+/* TEXT */
+
+.collection {
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  margin-bottom: 18px;
+
+  opacity: 0.75;
+}
+
+h1 {
+  font-family: Georgia, serif;
+
+  font-size: clamp(50px, 9vw, 100px);
+
+  font-weight: 400;
+
+  line-height: 0.9;
+
+  letter-spacing: -3px;
+
+  margin-bottom: 22px;
+}
+
+.description {
+  max-width: 360px;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  opacity: 0.75;
+
+  margin-bottom: 25px;
+}
+
+
+/* BOTTOM */
+
+.bottom-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  max-width: 600px;
+}
+
+.price {
+  font-size: 20px;
+
+  letter-spacing: 1px;
+}
+
+
+/* BUTTON */
+
+.details-btn {
+  padding: 15px 25px;
+
+  border: 1px solid rgba(255,255,255,0.8);
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+  backdrop-filter: blur(10px);
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.details-btn:hover {
+  background: white;
+
+  color: black;
+}
+
+
+/* ANIMATION */
+
+@keyframes arrowMove {
+
+  0% {
+    transform: translateY(-5px);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+
+  100% {
+    transform: translateY(-5px);
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .navbar {
+    height: 65px;
+
+    padding: 0 5%;
+  }
+
+  .logo {
+    font-size: 20px;
+
+    letter-spacing: 5px;
+  }
+
+  .icon-btn {
+    font-size: 21px;
+  }
+
+  .dress-info {
+    padding: 0 7% 12%;
+  }
+
+  h1 {
+    font-size: 55px;
+
+    letter-spacing: -2px;
+  }
+
+  .description {
+    font-size: 13px;
+
+    max-width: 280px;
+  }
+
+  .bottom-row {
+    gap: 15px;
+
+    align-items: flex-end;
+  }
+
+  .details-btn {
+    padding: 13px 17px;
+  }
+
 }
