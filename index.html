@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
 
   <title>VÉLORA — Premium Fashion</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -14,47 +15,105 @@
   <header class="navbar">
     <div class="logo">VÉLORA</div>
 
-    <div class="nav-icons">
-      <span>♡</span>
-      <span>🛍</span>
+    <div class="icons">
+      <button class="icon-btn">♡</button>
+      <button class="icon-btn">🛍</button>
     </div>
   </header>
 
+  <div class="scroll-hint">
+    SWIPE
+    <span>↓</span>
+  </div>
+
   <main class="fashion-feed">
 
-    <section class="dress-card">
-      <div class="dress-info">
-        <p class="collection">NEW COLLECTION</p>
-        <h1>Midnight Elegance</h1>
-        <p class="price">₹4,999</p>
+    <!-- DRESS 1 -->
+    <section class="dress-card dress-one">
 
-        <button>VIEW DETAILS</button>
+      <div class="dress-image"></div>
+
+      <div class="overlay"></div>
+
+      <div class="dress-info">
+        <p class="collection">VÉLORA / NEW COLLECTION</p>
+
+        <h1>Midnight<br>Elegance</h1>
+
+        <p class="description">
+          Timeless luxury for unforgettable evenings.
+        </p>
+
+        <div class="bottom-row">
+          <div>
+            <span class="price">₹4,999</span>
+          </div>
+
+          <button class="details-btn">VIEW DETAILS</button>
+        </div>
       </div>
+
     </section>
 
-    <section class="dress-card">
-      <div class="dress-info">
-        <p class="collection">VÉLORA COLLECTION</p>
-        <h1>Golden Evening</h1>
-        <p class="price">₹6,499</p>
 
-        <button>VIEW DETAILS</button>
+    <!-- DRESS 2 -->
+    <section class="dress-card dress-two">
+
+      <div class="dress-image"></div>
+
+      <div class="overlay"></div>
+
+      <div class="dress-info">
+        <p class="collection">VÉLORA / SIGNATURE</p>
+
+        <h1>Golden<br>Evening</h1>
+
+        <p class="description">
+          Designed to make every moment feel luxurious.
+        </p>
+
+        <div class="bottom-row">
+          <div>
+            <span class="price">₹6,499</span>
+          </div>
+
+          <button class="details-btn">VIEW DETAILS</button>
+        </div>
       </div>
+
     </section>
 
-    <section class="dress-card">
-      <div class="dress-info">
-        <p class="collection">SIGNATURE EDIT</p>
-        <h1>Royal Noir</h1>
-        <p class="price">₹7,999</p>
 
-        <button>VIEW DETAILS</button>
+    <!-- DRESS 3 -->
+    <section class="dress-card dress-three">
+
+      <div class="dress-image"></div>
+
+      <div class="overlay"></div>
+
+      <div class="dress-info">
+        <p class="collection">VÉLORA / ROYAL EDIT</p>
+
+        <h1>Royal<br>Noir</h1>
+
+        <p class="description">
+          Bold. Elegant. Made for the spotlight.
+        </p>
+
+        <div class="bottom-row">
+          <div>
+            <span class="price">₹7,999</span>
+          </div>
+
+          <button class="details-btn">VIEW DETAILS</button>
+        </div>
       </div>
+
     </section>
 
   </main>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 
 </body>
 </html>
