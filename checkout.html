@@ -167,21 +167,15 @@
 
   <script>
 
-    const savedProduct =
-      localStorage.getItem("veloraProduct");
+const params = new URLSearchParams(window.location.search);
 
-    if (savedProduct) {
+const productName = params.get("name");
+const productPrice = params.get("price");
 
-      const product =
-        JSON.parse(savedProduct);
-
-      document.getElementById("productName")
-        .textContent = product.name;
-
-      document.getElementById("productPrice")
-        .textContent = product.price;
-
-    }
+if (productName && productPrice) {
+  document.getElementById("productName").textContent = productName;
+  document.getElementById("productPrice").textContent = productPrice;
+}
 
     document.getElementById("orderBtn")
       .addEventListener("click", function () {
