@@ -18,20 +18,18 @@ const products = [
 
 const modal = document.getElementById("productModal");
 const closeButton = document.getElementById("closeProduct");
-
 const productName = document.getElementById("productName");
 const productPrice = document.getElementById("productPrice");
-
 const description = document.querySelector(".product-description");
 const buyButton = document.getElementById("buyNow");
 
 const detailButtons = document.querySelectorAll(".dress-card button");
 
 detailButtons.forEach((button, index) => {
-
   button.addEventListener("click", () => {
-
     const product = products[index];
+
+    if (!product || !modal) return;
 
     productName.textContent = product.name;
     productPrice.textContent = product.price;
@@ -39,42 +37,40 @@ detailButtons.forEach((button, index) => {
 
     modal.classList.add("active");
   });
-
 });
 
-closeButton.addEventListener("click", () => {
-  modal.classList.remove("active");
-});
-
-modal.addEventListener("click", (event) => {
-
-  if (event.target === modal) {
+if (closeButton) {
+  closeButton.addEventListener("click", () => {
     modal.classList.remove("active");
-  }
+  });
+}
 
-});
+if (modal) {
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.classList.remove("active");
+    }
+  });
+}
 
-document.querySelectorAll(".sizes button").forEach((sizeButton) => {
+const sizeButtons = document.querySelectorAll(".sizes button");
 
+sizeButtons.forEach((sizeButton) => {
   sizeButton.addEventListener("click", () => {
-
-    document.querySelectorAll(".sizes button").forEach((button) => {
+    sizeButtons.forEach((button) => {
       button.style.background = "transparent";
       button.style.color = "#111";
     });
 
     sizeButton.style.background = "#111";
     sizeButton.style.color = "#fff";
-
   });
-
 });
 
-buyButton.addEventListener("click", () => {
-
-  alert(
-    "Thank you for choosing VÉLORA!\n\n" +
-    "Your selected product is ready to order."
-  );
-
-});
+if (buyButton) {
+  buyButton.addEventListener("click", () => {
+    alert(
+      "Thank you for choosing VÉLORA!\n\nYour selected product is ready to order."
+    );
+  });
+}
