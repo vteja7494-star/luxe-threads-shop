@@ -3,39 +3,48 @@ document.addEventListener("DOMContentLoaded", function () {
   const products = [
     {
       name: "Midnight Elegance",
-      price: "₹4,999",
-      description: "Elegant evening wear designed for a beautiful night."
+      price: "₹4,999"
     },
     {
       name: "Golden Evening",
-      price: "₹6,499",
-      description: "A luxurious evening dress made for unforgettable moments."
+      price: "₹6,499"
     },
     {
       name: "Royal Noir",
-      price: "₹7,999",
-      description: "Bold. Elegant. Made for the spotlight."
+      price: "₹7,999"
     }
   ];
 
   const modal = document.getElementById("productModal");
   const closeButton = document.getElementById("closeProduct");
+
   const productName = document.getElementById("productName");
   const productPrice = document.getElementById("productPrice");
-  const description = document.querySelector(".product-description");
+
   const buyButton = document.getElementById("buyNow");
 
-  const detailButtons = document.querySelectorAll(".dress-card button");
+  const detailButtons =
+    document.querySelectorAll(".details-btn");
+
+  const bagButton =
+    document.getElementById("bagBtn");
+
+  let selectedProduct = null;
+
+
+  /* VIEW DETAILS */
 
   detailButtons.forEach(function (button, index) {
 
     button.addEventListener("click", function () {
 
-      const product = products[index];
+      selectedProduct = products[index];
 
-      productName.textContent = product.name;
-      productPrice.textContent = product.price;
-      description.textContent = product.description;
+      productName.textContent =
+        selectedProduct.name;
+
+      productPrice.textContent =
+        selectedProduct.price;
 
       modal.classList.add("active");
 
@@ -43,39 +52,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
+
+  /* CLOSE */
+
   closeButton.addEventListener("click", function () {
     modal.classList.remove("active");
   });
 
-  modal.addEventListener("click", function (event) {
-    if (event.target === modal) {
-      modal.classList.remove("active");
-    }
-  });
 
-  const sizeButtons = document.querySelectorAll(".sizes button");
-
-  sizeButtons.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-      sizeButtons.forEach(function (item) {
-        item.style.background = "transparent";
-        item.style.color = "#111";
-      });
-
-      button.style.background = "#111";
-      button.style.color = "#fff";
-
-    });
-
-  });
+  /* BUY NOW */
 
   buyButton.addEventListener("click", function () {
 
-    alert(
-      "Thank you for choosing VÉLORA!\n\nYour selected product is ready to order."
+    if (!selectedProduct) return;
+
+    localStorage.setItem(
+      "veloraProduct",
+      JSON.stringify(selectedProduct)
     );
+
+    window.location.href = "checkout.html";
+
+  });
+
+
+  /* BAG */
+
+  bagButton.addEventListener("click", function () {
+
+    const savedProduct =
+      localStorage.getItem("veloraProduct");
+
+    if (savedProduct) {
+
+      const product =
+        JSON.parse(savedProduct);
+
+      alert(
+        "🛍️ YOUR BAG\n\n" +
+        product.name +
+        "\n" +
+        product.price
+      );
+
+    } else {
+
+      alert("Your VÉLORA bag is empty.");
+
+    }
 
   });
 
