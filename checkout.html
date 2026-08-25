@@ -159,7 +159,7 @@
       PLACE ORDER
     </button>
 <button type="button" class="order-btn" id="payBtn">
-  PAY NOW ₹6,499
+PAY NOW <span id="payAmount">₹0</span>
 </button><button type="button" class="order-btn" id="paidBtn">
   I HAVE PAID - SEND ORDER
 </button>
@@ -248,5 +248,5 @@ document.getElementById("payBtn").addEventListener("click", function () {
   window.location.href = whatsappURL;
 });
   </script>
-
+document.getElementById("payAmount").textContent = productPrice;
 </html>
