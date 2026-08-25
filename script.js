@@ -107,4 +107,26 @@ window.location.href =
 
   });
 
-});
+})const searchButton = document.getElementById("searchBtn");
+
+searchButton.addEventListener("click", function () {
+  const query = prompt("Search product:");
+
+  if (!query) return;
+
+  const cards = document.querySelectorAll(".dress-card");
+  let found = false;
+
+  cards.forEach(function (card) {
+    const text = card.innerText.toLowerCase();
+    const match = text.includes(query.toLowerCase());
+
+    card.style.display = match ? "" : "none";
+
+    if (match) found = true;
+  });
+
+  if (!found) {
+    alert("Product not found.");
+  }
+});;
