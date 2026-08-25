@@ -67,7 +67,134 @@ body {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
+.product-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
 
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+}
+
+.product-modal.active {
+  display: flex;
+}
+
+.product-box {
+  position: relative;
+
+  width: 100%;
+  max-width: 600px;
+
+  padding: 35px 25px 40px;
+
+  background: #f5f1eb;
+  color: #111;
+
+  border-radius: 28px 28px 0 0;
+
+  animation: productUp 0.45s ease;
+}
+
+@keyframes productUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.close-product {
+  position: absolute;
+
+  top: 15px;
+  right: 20px;
+
+  border: none;
+  background: transparent;
+
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.product-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  opacity: 0.55;
+
+  margin-bottom: 15px;
+}
+
+.product-box h2 {
+  font-family: Georgia, serif;
+
+  font-size: 42px;
+  line-height: 1;
+
+  margin-bottom: 15px;
+}
+
+#productPrice {
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.product-description {
+  color: #555;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  margin-bottom: 25px;
+}
+
+.sizes {
+  display: flex;
+  gap: 10px;
+
+  margin-bottom: 25px;
+}
+
+.sizes button {
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid #999;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.sizes button:hover {
+  background: #111;
+  color: white;
+}
+
+.buy-btn {
+  width: 100%;
+
+  padding: 17px;
+
+  border: none;
+
+  background: #111;
+  color: white;
+
+  font-size: 12px;
+  letter-spacing: 3px;
+
+  cursor: pointer;
+}
+
+.buy-btn:hover {
+  background: #333;
+}
 .dress-card {
   position: relative;
   width: 100%;
