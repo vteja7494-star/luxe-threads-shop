@@ -180,7 +180,11 @@ if (productName && productPrice) {
   document.getElementById("productName").textContent = productName;
   document.getElementById("productPrice").textContent = productPrice;
 }
-
+if (productName && productPrice) {
+    document.getElementById("productName").textContent = productName;
+    document.getElementById("productPrice").textContent = productPrice;
+    document.getElementById("payAmount").textContent = productPrice;
+    }
     document.getElementById("orderBtn")
       .addEventListener("click", function () {
 
@@ -207,7 +211,7 @@ if (productName && productPrice) {
   "Customer: " + name + "\n" +
   "Phone: " + phone + "\n" +
   "Address: " + address;
-document.getElementById("payAmount").textContent = productPrice;
+
 const whatsappURL =
   "https://wa.me/919030779918?text=" +
   encodeURIComponent(message);
@@ -248,5 +252,5 @@ document.getElementById("payBtn").addEventListener("click", function () {
   window.location.href = whatsappURL;
 });
   </script>
-document.getElementById("payAmount").textContent = productPrice;
+
 </html>
