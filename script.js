@@ -71,7 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
       JSON.stringify(selectedProduct)
     );
 
-    window.location.href = "checkout.html";
+window.location.href =
+  "checkout.html?name=" +
+  encodeURIComponent(selectedProduct.name) +
+  "&price=" +
+  encodeURIComponent(selectedProduct.price);
 
   });
 
