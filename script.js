@@ -1,85 +1,31 @@
+const detailsButtons = document.querySelectorAll(".dress-card button");
 
-const cards = document.querySelectorAll(".dress-card");
-
-const feed = document.querySelector(".fashion-feed");
-
-
-/* First card active */
-
-cards[0].classList.add("active");
-
-
-/* Detect which dress is visible */
-
-const observer = new IntersectionObserver(
-  (entries) => {
-
-    entries.forEach((entry) => {
-
-      if (entry.isIntersecting) {
-
-        cards.forEach((card) => {
-          card.classList.remove("active");
-        });
-
-        entry.target.classList.add("active");
-
+detailsButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    const products = [
+      {
+        name: "Midnight Elegance",
+        price: "₹4,999",
+        description: "A timeless evening dress designed for elegant nights."
+      },
+      {
+        name: "Golden Evening",
+        price: "₹6,499",
+        description: "Luxury style with a sophisticated golden touch."
+      },
+      {
+        name: "Royal Noir",
+        price: "₹7,999",
+        description: "Bold. Elegant. Made for the spotlight."
       }
+    ];
 
-    });
+    const product = products[index];
 
-  },
-  {
-    threshold: 0.6
-  }
-);
-
-
-cards.forEach((card) => {
-  observer.observe(card);
-});
-
-
-/* Mobile swipe support */
-
-let startY = 0;
-
-let endY = 0;
-
-
-feed.addEventListener("touchstart", (event) => {
-
-  startY = event.touches[0].clientY;
-
-});
-
-
-feed.addEventListener("touchend", (event) => {
-
-  endY = event.changedTouches[0].clientY;
-
-  const distance = startY - endY;
-
-
-  if (Math.abs(distance) < 50) {
-    return;
-  }
-
-
-  if (distance > 0) {
-
-    feed.scrollBy({
-      top: window.innerHeight,
-      behavior: "smooth"
-    });
-
-  } else {
-
-    feed.scrollBy({
-      top: -window.innerHeight,
-      behavior: "smooth"
-    });
-
-  }
-
+    alert(
+      product.name +
+      "\n\nPrice: " + product.price +
+      "\n\n" + product.description
+    );
+  });
 });
