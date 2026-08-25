@@ -215,7 +215,21 @@ window.location.href = whatsappURL;
 
 window.location.href = whatsappURL;
       });
+document.getElementById("payBtn").addEventListener("click", function () {
 
+  const amount = productPrice
+    .replace("₹", "")
+    .replace(",", "");
+
+  const upiURL =
+    "upi://pay?pa=9030779918@ybl" +
+    "&pn=VÉLORA" +
+    "&am=" + encodeURIComponent(amount) +
+    "&cu=INR";
+
+  window.location.href = upiURL;
+
+});
   </script>
 
 </html>
