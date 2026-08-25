@@ -202,12 +202,19 @@
           return;
         }
 
-        alert(
-          "🎉 Order received!\n\n" +
-          "Thank you, " + name +
-          "!\n\n" +
-          "VÉLORA will contact you soon."
-        );
+const message =
+  "🛍️ VÉLORA NEW ORDER\n\n" +
+  "Product: " + product.name + "\n" +
+  "Price: " + product.price + "\n\n" +
+  "Customer: " + name + "\n" +
+  "Phone: " + phone + "\n" +
+  "Address: " + address;
+
+const whatsappURL =
+  "https://wa.me/919030779918?text=" +
+  encodeURIComponent(message);
+
+window.location.href = whatsappURL;  
 
       });
 
