@@ -209,12 +209,11 @@ const message =
   "Customer: " + name + "\n" +
   "Phone: " + phone + "\n" +
   "Address: " + address;
-
 const whatsappURL =
-  "https://wa.me/919030779918?text=" +
+  "https://api.whatsapp.com/send?phone=919030779918&text=" +
   encodeURIComponent(message);
 
-window.location.href = whatsappURL;  
+window.location.href = whatsappURL;
 
       });
 
