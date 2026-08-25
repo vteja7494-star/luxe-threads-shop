@@ -8,14 +8,10 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  background: #080808;
-  color: #ffffff;
   font-family: Arial, sans-serif;
-}
-
-body {
-  overscroll-behavior: none;
+  background: #080808;
+  color: white;
+  overflow: hidden;
 }
 
 /* NAVBAR */
@@ -24,347 +20,166 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
-  height: 80px;
-
-  padding: 0 6%;
-
+  height: 75px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  z-index: 20;
-
-  mix-blend-mode: difference;
+  z-index: 100;
 }
 
 .logo {
   font-family: Georgia, serif;
-
   font-size: 25px;
-  letter-spacing: 7px;
-
-  font-weight: 500;
+  letter-spacing: 6px;
 }
 
-.icons {
+.nav-icons {
   display: flex;
   gap: 15px;
 }
 
-.icon-btn {
-  border: 0;
+.nav-icons button {
+  border: none;
   background: transparent;
-
   color: white;
-
-  font-size: 25px;
-
+  font-size: 27px;
   cursor: pointer;
 }
 
-
-/* SWIPE TEXT */
-
-.scroll-hint {
-  position: fixed;
-
-  right: 25px;
-  bottom: 35px;
-
-  z-index: 20;
-
-  font-size: 10px;
-
-  letter-spacing: 4px;
-
-  writing-mode: vertical-rl;
-
-  opacity: 0.7;
-}
-
-.scroll-hint span {
-  display: block;
-
-  margin-top: 8px;
-
-  font-size: 18px;
-
-  animation: arrowMove 1.5s infinite;
-}
-
-
-/* FEED */
+/* PRODUCTS */
 
 .fashion-feed {
   width: 100%;
   height: 100vh;
-
-  overflow-y: scroll;
-
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
-
-  scrollbar-width: none;
 }
-
-.fashion-feed::-webkit-scrollbar {
-  display: none;
-}
-
-
-/* CARD */
 
 .dress-card {
   position: relative;
-
   width: 100%;
-  height: 100vh;
-
-  scroll-snap-align: start;
-
-  overflow: hidden;
-
+  min-height: 100vh;
   display: flex;
   align-items: flex-end;
+  padding: 40px 28px 70px;
+  scroll-snap-align: start;
+  overflow: hidden;
 }
 
+/* PRODUCT BACKGROUNDS */
 
-/* IMAGE */
-
-.dress-image {
-  position: absolute;
-
-  inset: 0;
-
-  background-position: center;
-  background-size: cover;
-
-  transform: scale(1.05);
-
-  transition: transform 1.5s ease;
-}
-
-
-/* Dress Images */
-
-.dress-one .dress-image {
-  background-image:
-    url("https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1400&q=85");
-}
-
-.dress-two .dress-image {
-  background-image:
-    url("https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1400&q=85");
-}
-
-.dress-three .dress-image {
-  background-image:
-    url("https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1400&q=85");
-}
-
-
-/* DARK OVERLAY */
-
-.overlay {
-  position: absolute;
-
-  inset: 0;
-
+.dress-card:nth-child(1) {
   background:
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.9),
-      rgba(0, 0, 0, 0.15) 65%,
-      rgba(0, 0, 0, 0.25)
-    );
+    linear-gradient(to top, #050505 5%, transparent 60%),
+    radial-gradient(circle at 70% 30%, #555, #111 65%);
 }
 
+.dress-card:nth-child(2) {
+  background:
+    linear-gradient(to top, #080808 5%, transparent 60%),
+    radial-gradient(circle at 30% 35%, #7a6245, #111 65%);
+}
+
+.dress-card:nth-child(3) {
+  background:
+    linear-gradient(to top, #050505 5%, transparent 60%),
+    radial-gradient(circle at 65% 35%, #333, #000 65%);
+}
 
 /* CONTENT */
 
 .dress-info {
   position: relative;
-
   z-index: 5;
-
-  width: 100%;
-
-  padding: 0 7% 8%;
-
-  transform: translateY(40px);
-
-  opacity: 0;
-
-  transition:
-    transform 1s ease,
-    opacity 1s ease;
+  max-width: 650px;
+  animation: fadeUp 1s ease;
 }
-
-
-/* ACTIVE CARD */
-
-.dress-card.active .dress-info {
-  transform: translateY(0);
-
-  opacity: 1;
-}
-
-.dress-card.active .dress-image {
-  transform: scale(1);
-}
-
-
-/* TEXT */
 
 .collection {
-  font-size: 11px;
-
-  letter-spacing: 4px;
-
+  font-size: 13px;
+  letter-spacing: 5px;
   margin-bottom: 18px;
-
-  opacity: 0.75;
+  text-transform: uppercase;
 }
 
 h1 {
   font-family: Georgia, serif;
-
-  font-size: clamp(50px, 9vw, 100px);
-
-  font-weight: 400;
-
+  font-size: clamp(55px, 12vw, 110px);
   line-height: 0.9;
-
-  letter-spacing: -3px;
-
-  margin-bottom: 22px;
-}
-
-.description {
-  max-width: 360px;
-
-  font-size: 14px;
-
-  line-height: 1.6;
-
-  opacity: 0.75;
-
+  font-weight: normal;
   margin-bottom: 25px;
 }
 
-
-/* BOTTOM */
-
-.bottom-row {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  max-width: 600px;
-}
-
 .price {
-  font-size: 20px;
-
-  letter-spacing: 1px;
+  font-size: 24px;
+  margin-bottom: 25px;
 }
-
 
 /* BUTTON */
 
 .details-btn {
-  padding: 15px 25px;
-
-  border: 1px solid rgba(255,255,255,0.8);
-
-  background: rgba(255,255,255,0.08);
-
-  color: white;
-
-  backdrop-filter: blur(10px);
-
-  font-size: 11px;
-
+  padding: 14px 25px;
+  border: 1px solid white;
+  background: white;
+  color: black;
+  font-size: 14px;
   letter-spacing: 2px;
-
   cursor: pointer;
-
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 .details-btn:hover {
-  background: white;
-
-  color: black;
+  background: transparent;
+  color: white;
 }
-
 
 /* ANIMATION */
 
-@keyframes arrowMove {
-
-  0% {
-    transform: translateY(-5px);
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
   }
 
-  50% {
-    transform: translateY(5px);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-
-  100% {
-    transform: translateY(-5px);
-  }
-
 }
-
 
 /* MOBILE */
 
 @media (max-width: 600px) {
 
   .navbar {
-    height: 65px;
-
-    padding: 0 5%;
+    padding: 0 18px;
   }
 
   .logo {
-    font-size: 20px;
-
+    font-size: 21px;
     letter-spacing: 5px;
   }
 
-  .icon-btn {
-    font-size: 21px;
+  .nav-icons button {
+    font-size: 24px;
   }
 
-  .dress-info {
-    padding: 0 7% 12%;
+  .dress-card {
+    padding: 30px 18px 60px;
   }
 
   h1 {
-    font-size: 55px;
-
-    letter-spacing: -2px;
+    font-size: 58px;
   }
 
-  .description {
-    font-size: 13px;
-
-    max-width: 280px;
+  .collection {
+    font-size: 11px;
+    letter-spacing: 4px;
   }
 
-  .bottom-row {
-    gap: 15px;
-
-    align-items: flex-end;
+  .price {
+    font-size: 21px;
   }
-
-  .details-btn {
-    padding: 13px 17px;
-  }
-
 }
