@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VÉLORA — Checkout</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0b0b0b;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 25px;
+    }
+
+    .checkout {
+      width: 100%;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      letter-spacing: 7px;
+      margin-bottom: 45px;
+    }
+
+    .label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      opacity: .6;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 48px;
+      font-weight: normal;
+      margin-bottom: 35px;
+    }
+
+    .product {
+      padding: 25px 0;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      margin-bottom: 35px;
+    }
+
+    .product h2 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 20px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+
+      background: #151515;
+      border: 1px solid #333;
+      color: white;
+
+      outline: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+
+    .order-btn {
+      width: 100%;
+      padding: 17px;
+
+      border: none;
+      background: white;
+      color: black;
+
+      font-size: 12px;
+      letter-spacing: 3px;
+
+      cursor: pointer;
+    }
+
+    .order-btn:hover {
+      background: #ddd;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 25px;
+
+      color: white;
+      text-decoration: none;
+
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="checkout">
+
+    <div class="logo">VÉLORA</div>
+
+    <p class="label">SECURE CHECKOUT</p>
+
+    <h1>Your Order</h1>
+
+    <div class="product">
+
+      <h2 id="productName">
+        Loading...
+      </h2>
+
+      <p class="price" id="productPrice">
+        ₹0
+      </p>
+
+    </div>
+
+    <input
+      type="text"
+      id="customerName"
+      placeholder="Full Name"
+    >
+
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Phone Number"
+    >
+
+    <textarea
+      id="address"
+      placeholder="Delivery Address"
+    ></textarea>
+
+    <button class="order-btn" id="orderBtn">
+      PLACE ORDER
+    </button>
+
+    <a href="index.html" class="back">
+      ← BACK TO SHOP
+    </a>
+
+  </main>
+
+  <script>
+
+    const savedProduct =
+      localStorage.getItem("veloraProduct");
+
+    if (savedProduct) {
+
+      const product =
+        JSON.parse(savedProduct);
+
+      document.getElementById("productName")
+        .textContent = product.name;
+
+      document.getElementById("productPrice")
+        .textContent = product.price;
+
+    }
+
+    document.getElementById("orderBtn")
+      .addEventListener("click", function () {
+
+        const name =
+          document.getElementById("customerName").value;
+
+        const phone =
+          document.getElementById("phone").value;
+
+        const address =
+          document.getElementById("address").value;
+
+        if (!name || !phone || !address) {
+
+          alert("Please fill all details.");
+
+          return;
+        }
+
+        alert(
+          "🎉 Order received!\n\n" +
+          "Thank you, " + name +
+          "!\n\n" +
+          "VÉLORA will contact you soon."
+        );
+
+      });
+
+  </script>
+
+</body>
+</html>
