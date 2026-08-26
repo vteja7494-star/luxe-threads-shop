@@ -112,58 +112,7 @@ if (searchButton) {
   });
 }
 
-  /* VIEW DETAILS */
-
-  const detailButtons = document.querySelectorAll(
-  ".details-btn, [data-detail], .view-btn"
-);
-
-  detailButtons.forEach(function (button, index) {
-
-    button.addEventListener("click", function () {
-
-      selectedProduct = {
-    name: "Midnight Elegance",
-    price: "₹4,999"
-};
-
-      const productName =
-        document.getElementById("productName");
-
-      const productPrice =
-        document.getElementById("productPrice");
-
-      if (productName) {
-        productName.textContent =
-          selectedProduct.name;
-      }
-
-      if (productPrice) {
-        productPrice.textContent =
-          selectedProduct.price;
-      }
-
-      if (modal) {
-        modal.classList.add("active");
-      }
-
-    });
-
-  });
-
-
-  /* CLOSE */
-
-  if (closeButton && modal) {
-
-    closeButton.addEventListener("click", function () {
-
-      modal.classList.remove("active");
-
-    });
-
-  }
-
+  
 
   /* SIZE SELECTION */
 
