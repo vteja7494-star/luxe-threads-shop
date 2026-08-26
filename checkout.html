@@ -487,45 +487,25 @@ document.getElementById(
    PAY NOW
    ============================== */
 
-document.getElementById(
-  "payBtn"
-).addEventListener(
-  "click",
-  function () {
+  document.getElementById("payBtn").addEventListener("click", function () {
 
     if (!validateDetails()) {
-      return;
+        return;
     }
 
-    const message =
-      "💳 VÉLORA PAYMENT REQUEST\n\n" +
+    const upiId = "9030779918@ybl";
+    const amount = productPrice.replace(/[^\d.]/g, "");
 
-      "Product: " +
-      productName +
-      "\n" +
+    const upiUrl =
+        "upi://pay" +
+        "?pa=" + encodeURIComponent(upiId) +
+        "&pn=" + encodeURIComponent("VELÓRA") +
+        "&am=" + encodeURIComponent(amount) +
+        "&cu=INR" +
+        "&tn=" + encodeURIComponent("VELÓRA Order - " + productName);
 
-      "Amount: " +
-      productPrice +
-      "\n" +
-
-      "Size: " +
-      productSize +
-      "\n\n" +
-
-      "Customer: " +
-      getCustomerDetails().name +
-      "\n" +
-
-      "Phone: " +
-      getCustomerDetails().phone +
-      "\n\n" +
-
-      "Please send me the payment details.";
-
-    sendWhatsApp(message);
-
-  }
-);
+    window.location.href = upiUrl;
+});
 
 
 /* ==============================
