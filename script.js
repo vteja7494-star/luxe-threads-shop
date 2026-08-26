@@ -59,13 +59,51 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.classList.remove("active");
   });
 
+/* BUY NOW */
 
-window.location.href =
-  "./checkout.html?name=" +
-  encodeURIComponent(selectedProduct.name) +
-  "&price=" +
-  encodeURIComponent(selectedProduct.price);  
+buyButton.addEventListener("click", function () {
 
+  if (!selectedProduct) {
+    alert("Please select a product.");
+    return;
+  }
+
+  const sizeButtons = Array.from(
+    modal.querySelectorAll("button")
+  ).filter(button =>
+    ["S", "M", "L", "XL"].includes(button.textContent.trim())
+  );
+
+  const selectedSizeButton = sizeButtons.find(button =>
+    button.classList.contains("active")
+  );
+
+  const selectedSize = selectedSizeButton
+    ? selectedSizeButton.textContent.trim()
+    : "";
+
+  if (!selectedSize) {
+    alert("Please select a size.");
+    return;
+  }
+
+  localStorage.setItem(
+    "veloraProduct",
+    JSON.stringify({
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      size: selectedSize
+    })
+  );
+
+  window.location.href =
+    "./checkout.html?name=" +
+    encodeURIComponent(selectedProduct.name) +
+    "&price=" +
+    encodeURIComponent(selectedProduct.price) +
+    "&size=" +
+    encodeURIComponent(selectedSize);
+});
 
   /* BAG */
 
