@@ -351,3 +351,12 @@ const modal = document.getElementById("productModal");
   }
 
 });
+// LOGIN INTRO
+const bagBtn = document.getElementById("bagBtn");
+const loginIntro = document.querySelector(".login-intro");
+
+if (bagBtn && loginIntro) {
+  bagBtn.addEventListener("click", function () {
+    loginIntro.classList.add("active");
+  });
+}
