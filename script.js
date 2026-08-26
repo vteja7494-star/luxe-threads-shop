@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  const modal = document.querySelector(".modal");
+const modal = document.getElementById("productModal");
 
   const closeButton =
     document.querySelector(".close-product") ||
