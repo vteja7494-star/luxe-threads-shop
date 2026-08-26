@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
   /* VIEW DETAILS */
 
   const detailButtons = document.querySelectorAll(
-    ".detail-btn, [data-detail], .view-btn"
-  );".details-btn"
+  ".details-btn, [data-detail], .view-btn"
+);
 
   detailButtons.forEach(function (button, index) {
 
