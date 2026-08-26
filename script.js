@@ -360,3 +360,22 @@ if (bagBtn && loginIntro) {
     loginIntro.classList.add("active");
   });
 }
+// LOGIN
+const loginPanel = document.querySelector(".login-intro");
+const loginButton = document.querySelector(".login-panel button");
+const loginInputs = document.querySelectorAll(".login-panel input");
+
+if (loginButton) {
+  loginButton.addEventListener("click", function () {
+    const email = loginInputs[0].value.trim();
+    const password = loginInputs[1].value.trim();
+
+    if (!email || !password) {
+      alert("Please enter Email/Phone and Password.");
+      return;
+    }
+
+    alert("Login successful! Welcome back to VÉLORA.");
+    loginPanel.classList.remove("active");
+  });
+}
