@@ -59,10 +59,10 @@ const modal = document.getElementById("productModal");
 
     button.addEventListener("click", function () {
 
-      selectedProduct = products[index] || {
-        name: "Midnight Elegance",
-        price: "₹4,999"
-      };
+      selectedProduct = {
+    name: "Midnight Elegance",
+    price: "₹4,999"
+};
 
       const productName =
         document.getElementById("productName");
