@@ -1,647 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<script>
+const params = new URLSearchParams(window.location.search);
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+let name = params.get("name");
+let price = params.get("price");
+let size = params.get("size");
 
-  <title>VÉLORA — Checkout</title>
+const saved = localStorage.getItem("veloraProduct");
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+if (saved) {
+  try {
+    const product = JSON.parse(saved);
 
-    body {
-      min-height: 100vh;
-      background: #0b0b0b;
-      color: white;
-      font-family: Arial, sans-serif;
-      padding: 25px;
-    }
+    if (!name) name = product.name;
+    if (!price) price = product.price;
+    if (!size) size = product.size;
 
-    .checkout {
-      width: 100%;
-      max-width: 600px;
-      margin: 40px auto;
-    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-    .logo {
-      font-family: Georgia, serif;
-      font-size: 25px;
-      letter-spacing: 7px;
-      margin-bottom: 45px;
-    }
+name = name || "Midnight Elegance";
+price = price || "₹4,999";
+size = size || "Not selected";
 
-    .label {
-      font-size: 10px;
-      letter-spacing: 4px;
-      opacity: 0.6;
-      margin-bottom: 12px;
-    }
+document.getElementById("productName").textContent = name;
+document.getElementById("productPrice").textContent = price;
+document.getElementById("productSize").textContent = "SIZE: " + size;
 
-    h1 {
-      font-family: Georgia, serif;
-      font-size: 48px;
-      font-weight: normal;
-      margin-bottom: 35px;
-    }
+const amount = price.replace(/[₹,\s]/g, "");
 
-    .product {
-      padding: 25px 0;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
-      margin-bottom: 35px;
-    }
+document.getElementById("payAmount").textContent = amount || "4999";
 
-    .product h2 {
-      font-family: Georgia, serif;
-      font-size: 30px;
-      font-weight: normal;
-      margin-bottom: 10px;
-    }
 
-    .price {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
+document.getElementById("orderBtn").onclick = function () {
 
-    .size {
-      font-size: 14px;
-      color: #aaa;
-      letter-spacing: 2px;
-    }
+  const customerName =
+    document.getElementById("customerName").value.trim();
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 15px;
-      margin-bottom: 15px;
+  const phone =
+    document.getElementById("phone").value.trim();
 
-      background: #151515;
-      border: 1px solid #333;
+  const address =
+    document.getElementById("address").value.trim();
 
-      color: white;
-      outline: none;
+  if (!customerName || !phone || !address) {
+    alert("Please fill all details.");
+    return;
+  }
 
-      font-size: 14px;
-    }
+  const message =
+    "🛍️ VÉLORA NEW ORDER\n\n" +
+    "Product: " + name + "\n" +
+    "Price: " + price + "\n" +
+    "Size: " + size + "\n\n" +
+    "Customer: " + customerName + "\n" +
+    "Phone: " + phone + "\n" +
+    "Address: " + address;
 
-    input:focus,
-    textarea:focus {
-      border-color: #777;
-    }
+  window.location.href =
+    "https://wa.me/919030779918?text=" +
+    encodeURIComponent(message);
+};
 
-    textarea {
-      height: 110px;
-      resize: none;
-    }
 
-    button {
-      width: 100%;
-      padding: 17px;
-      border: none;
-      cursor: pointer;
+document.getElementById("paidBtn").onclick = function () {
 
-      font-size: 12px;
-      letter-spacing: 3px;
-    }
+  const customerName =
+    document.getElementById("customerName").value.trim();
 
-    .order-btn {
-      background: white;
-      color: black;
-      margin-bottom: 10px;
-    }
+  const phone =
+    document.getElementById("phone").value.trim();
 
-    .order-btn:hover {
-      background: #ddd;
-    }
+  const address =
+    document.getElementById("address").value.trim();
 
-    .pay-btn {
-      background: white;
-      color: black;
-      margin-bottom: 10px;
-    }
+  if (!customerName || !phone || !address) {
+    alert("Please fill all details.");
+    return;
+  }
 
-    .paid-btn {
-      background: white;
-      color: black;
-    }
+  const message =
+    "💰 VÉLORA PAYMENT\n\n" +
+    "Product: " + name + "\n" +
+    "Price: " + price + "\n" +
+    "Size: " + size + "\n\n" +
+    "Customer: " + customerName + "\n" +
+    "Phone: " + phone + "\n" +
+    "Address: " + address;
 
-    button:hover {
-      opacity: 0.85;
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 25px;
-
-      color: white;
-      text-decoration: none;
-
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    .message {
-      margin-top: 20px;
-      padding: 15px;
-      display: none;
-
-      border: 1px solid #333;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 600px) {
-
-      body {
-        padding: 20px;
-      }
-
-      .checkout {
-        margin: 20px auto;
-      }
-
-      h1 {
-        font-size: 42px;
-      }
-
-      .product h2 {
-        font-size: 27px;
-      }
-
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="checkout">
-
-    <div class="logo">
-      VÉLORA
-    </div>
-
-    <p class="label">
-      SECURE CHECKOUT
-    </p>
-
-    <h1>
-      Your Order
-    </h1>
-
-
-    <!-- PRODUCT -->
-
-    <div class="product">
-
-      <h2 id="productName">
-        Loading...
-      </h2>
-
-      <p
-        class="price"
-        id="productPrice"
-      >
-        ₹0
-      </p>
-
-      <p
-        class="size"
-        id="productSize"
-      >
-        SIZE: —
-      </p>
-
-    </div>
-
-
-    <!-- CUSTOMER DETAILS -->
-
-    <input
-      type="text"
-      id="customerName"
-      placeholder="Full Name"
-    >
-
-    <input
-      type="tel"
-      id="phone"
-      placeholder="Phone Number"
-    >
-
-    <textarea
-      id="address"
-      placeholder="Delivery Address"
-    ></textarea>
-
-
-    <!-- PLACE ORDER -->
-
-    <button
-      class="order-btn"
-      id="orderBtn"
-    >
-      PLACE ORDER
-    </button>
-
-
-    <!-- PAY NOW -->
-
-    <button
-      class="pay-btn"
-      id="payBtn"
-    >
-      PAY NOW ₹<span id="payAmount">0</span>
-    </button>
-
-
-    <!-- PAID -->
-
-    <button
-      class="paid-btn"
-      id="paidBtn"
-    >
-      I HAVE PAID — SEND ORDER
-    </button>
-
-
-    <div
-      class="message"
-      id="message"
-    ></div>
-
-
-    <a
-      href="index.html"
-      class="back"
-    >
-      ← BACK TO SHOP
-    </a>
-
-  </main>
-
-
-  <script>
-
-    /* =========================
-       GET PRODUCT INFORMATION
-       ========================= */
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-
-    let productName =
-      params.get("name");
-
-    let productPrice =
-      params.get("price");
-
-    let productSize =
-      params.get("size");
-
-
-    /* =========================
-       LOCAL STORAGE FALLBACK
-       ========================= */
-
-    const savedProduct =
-      localStorage.getItem(
-        "veloraProduct"
-      );
-
-
-    if (
-      (!productName || !productPrice) &&
-      savedProduct
-    ) {
-
-      try {
-
-        const product =
-          JSON.parse(savedProduct);
-
-        productName =
-          product.name;
-
-        productPrice =
-          product.price;
-
-        productSize =
-          product.size;
-
-      } catch (error) {
-
-        console.log(
-          "Saved product could not be read."
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       DEFAULT VALUES
-       ========================= */
-
-    if (!productName) {
-      productName =
-        "Midnight Elegance";
-    }
-
-
-    if (!productPrice) {
-      productPrice =
-        "₹4,999";
-    }
-
-
-    if (!productSize) {
-      productSize =
-        "Not selected";
-    }
-
-
-    /* =========================
-       SHOW PRODUCT
-       ========================= */
-
-    document
-      .getElementById("productName")
-      .textContent =
-      productName;
-
-
-    document
-      .getElementById("productPrice")
-      .textContent =
-      productPrice;
-
-
-    document
-      .getElementById("productSize")
-      .textContent =
-      "SIZE: " +
-      productSize;
-
-
-    /* =========================
-       PAYMENT AMOUNT
-       ========================= */
-
-    const amount =
-      productPrice
-        .replace(/[₹,\s]/g, "")
-        .replace(/[^0-9.]/g, "");
-
-
-    document
-      .getElementById("payAmount")
-      .textContent =
-      amount || "0";
-
-
-    /* =========================
-       CUSTOMER MESSAGE
-       ========================= */
-
-    function getCustomerDetails() {
-
-      const name =
-        document
-          .getElementById("customerName")
-          .value
-          .trim();
-
-      const phone =
-        document
-          .getElementById("phone")
-          .value
-          .trim();
-
-      const address =
-        document
-          .getElementById("address")
-          .value
-          .trim();
-
-
-      return {
-        name,
-        phone,
-        address
-      };
-
-    }
-
-
-    function validateDetails() {
-
-      const details =
-        getCustomerDetails();
-
-
-      if (
-        !details.name ||
-        !details.phone ||
-        !details.address
-      ) {
-
-        alert(
-          "Please fill all details."
-        );
-
-        return null;
-
-      }
-
-
-      return details;
-
-    }
-
-
-    function createOrderMessage() {
-
-      const details =
-        validateDetails();
-
-
-      if (!details) {
-        return null;
-      }
-
-
-      const message =
-
-        "🛍️ VÉLORA NEW ORDER\n\n" +
-
-        "Product: " +
-        productName +
-        "\n" +
-
-        "Price: " +
-        productPrice +
-        "\n" +
-
-        "Size: " +
-        productSize +
-        "\n\n" +
-
-        "Customer: " +
-        details.name +
-        "\n" +
-
-        "Phone: " +
-        details.phone +
-        "\n" +
-
-        "Address: " +
-        details.address;
-
-
-      return message;
-
-    }
-
-
-    /* =========================
-       WHATSAPP NUMBER
-       ========================= */
-
-    const whatsappNumber =
-      "919030779918";
-
-
-    /* =========================
-       PLACE ORDER
-       ========================= */
-
-    document
-      .getElementById("orderBtn")
-      .addEventListener(
-        "click",
-        function () {
-
-          const message =
-            createOrderMessage();
-
-
-          if (!message) {
-            return;
-          }
-
-
-          const whatsappURL =
-            "https://wa.me/" +
-            whatsappNumber +
-            "?text=" +
-            encodeURIComponent(
-              message
-            );
-
-
-          window.location.href =
-            whatsappURL;
-
-        }
-      );
-
-
-    /* =========================
-       PAY NOW
-       ========================= */
-
-    document
-      .getElementById("payBtn")
-      .addEventListener(
-        "click",
-        function () {
-
-          const details =
-            validateDetails();
-
-
-          if (!details) {
-            return;
-          }
-
-
-          const upiURL =
-            "upi://pay" +
-
-            "?pa=9030779918@ybl" +
-
-            "&pn=VELORA" +
-
-            "&am=" +
-            encodeURIComponent(
-              amount
-            ) +
-
-            "&cu=INR";
-
-
-          window.location.href =
-            upiURL;
-
-        }
-      );
-
-
-    /* =========================
-       I HAVE PAID
-       ========================= */
-
-    document
-      .getElementById("paidBtn")
-      .addEventListener(
-        "click",
-        function () {
-
-          const message =
-            createOrderMessage();
-
-
-          if (!message) {
-            return;
-          }
-
-
-          const paymentMessage =
-
-            "💰 VÉLORA PAYMENT\n\n" +
-
-            message;
-
-
-          const whatsappURL =
-            "https://wa.me/" +
-            whatsappNumber +
-            "?text=" +
-            encodeURIComponent(
-              paymentMessage
-            );
-
-
-          window.location.href =
-            whatsappURL;
-
-        }
-      );
-
-
-  </script>
-
-</body>
-</html>
+  window.location.href =
+    "https://wa.me/919030779918?text=" +
+    encodeURIComponent(message);
+};
+</script>
