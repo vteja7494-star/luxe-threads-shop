@@ -143,7 +143,8 @@ detailButtons.forEach(function (button, index) {
     if (modal) {
         modal.classList.add("active");
     }
-
+});
+});
   /* SIZE SELECTION */
 
   const sizeButtons = modal
