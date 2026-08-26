@@ -119,10 +119,16 @@ const detailButtons = document.querySelectorAll(
 
 detailButtons.forEach(function (button, index) {
   button.addEventListener("click", function () {
-      selectedProduct = {
-        name: "Midnight Elegance",
-        price: "₹4,999"
-    };
+      const productData = [
+    { name: "Midnight Elegance", price: "₹4,999" },
+    { name: "Golden Evening", price: "₹6,499" },
+    { name: "Royal Noir", price: "₹7,999" },
+    { name: "Midnight Black", price: "₹3,999" },
+    { name: "Royal Blue", price: "₹4,499" },
+    { name: "Urban Black", price: "₹4,999" }
+];
+
+selectedProduct = productData[index] || productData[0];
 
     const productName =
         document.getElementById("productName");
