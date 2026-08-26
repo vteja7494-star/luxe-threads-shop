@@ -60,24 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  /* BUY NOW */
-
-  buyButton.addEventListener("click", function () {
-
-    if (!selectedProduct) return;
-
-    localStorage.setItem(
-      "veloraProduct",
-      JSON.stringify(selectedProduct)
-    );
-
 window.location.href =
-  "checkout.html?name=" +
+  "./checkout.html?name=" +
   encodeURIComponent(selectedProduct.name) +
   "&price=" +
-  encodeURIComponent(selectedProduct.price);
-
-  });
+  encodeURIComponent(selectedProduct.price);  
 
 
   /* BAG */
