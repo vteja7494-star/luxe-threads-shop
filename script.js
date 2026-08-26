@@ -430,7 +430,56 @@ if (bagButton) {
     const checkoutButton = popup.querySelector(".bag-checkout");
 
     checkoutButton.addEventListener("click", function () {
-      alert("Checkout coming soon.");
+
+  const checkout = document.createElement("div");
+  checkout.className = "checkout-popup";
+
+  checkout.innerHTML = `
+    <button class="checkout-close">×</button>
+
+    <h2>CHECKOUT</h2>
+
+    <p class="checkout-product">
+      ${product.name} — ${product.price}
+    </p>
+
+    <input type="text" placeholder="Full Name" id="customerName">
+
+    <input type="tel" placeholder="Mobile Number" id="customerPhone">
+
+    <textarea placeholder="Delivery Address" id="customerAddress"></textarea>
+
+    <button class="place-order" id="placeOrder">
+      PLACE ORDER
+    </button>
+  `;
+
+  document.body.appendChild(checkout);
+
+  checkout.querySelector(".checkout-close")
+    .addEventListener("click", function () {
+      checkout.remove();
     });
-  });
-}
+
+  checkout.querySelector("#placeOrder")
+    .addEventListener("click", function () {
+
+      const name = document.getElementById("customerName").value.trim();
+      const phone = document.getElementById("customerPhone").value.trim();
+      const address = document.getElementById("customerAddress").value.trim();
+
+      if (!name || !phone || !address) {
+        alert("Please fill all details.");
+        return;
+      }
+
+      alert(
+        "ORDER CONFIRMED!\n\n" +
+        "Thank you, " + name + "!\n" +
+        "Product: " + product.name + "\n" +
+        "Price: " + product.price
+      );
+
+      checkout.remove();
+    });
+});
