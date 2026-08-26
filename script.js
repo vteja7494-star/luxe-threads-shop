@@ -381,7 +381,7 @@ if (loginButton) {
 }
  /* PREMIUM BAG POPUP */
 
-const bagButton = document.getElementById("bagButton");
+const bagButton = document.getElementById("bagBtn");
 
 if (bagButton) {
   bagButton.addEventListener("click", function () {
