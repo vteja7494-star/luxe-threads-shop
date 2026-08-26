@@ -29,8 +29,8 @@ const modal = document.getElementById("productModal");
   const products = cards.map(function (card) {
 
     const nameEl =
-      card.querySelector(".product-name") ||
-      card.querySelector("h2, h3, .name");
+    card.querySelector(".product-name") ||
+    card.querySelector("h1, h2, h3, .name");
 
     const priceEl =
       card.querySelector(".product-price") ||
