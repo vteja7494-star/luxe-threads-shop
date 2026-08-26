@@ -379,3 +379,58 @@ if (loginButton) {
     loginPanel.classList.remove("active");
   });
 }
+ /* PREMIUM BAG POPUP */
+
+const bagButton = document.getElementById("bagButton");
+
+if (bagButton) {
+  bagButton.addEventListener("click", function () {
+
+    const saved = localStorage.getItem("veloraProduct");
+
+    if (!saved) {
+      alert("Your VÉLORA bag is empty.");
+      return;
+    }
+
+    let product;
+
+    try {
+      product = JSON.parse(saved);
+    } catch (error) {
+      alert("Your VÉLORA bag is empty.");
+      return;
+    }
+
+    const popup = document.createElement("div");
+    popup.className = "bag-popup active";
+
+    popup.innerHTML = `
+      <button class="bag-close">×</button>
+
+      <h2>YOUR BAG</h2>
+
+      <p><strong>${product.name}</strong></p>
+      <p>Price: ${product.price}</p>
+      <p>Size: ${product.size || "Not selected"}</p>
+
+      <button class="bag-checkout">
+        CHECKOUT
+      </button>
+    `;
+
+    document.body.appendChild(popup);
+
+    const closeButton = popup.querySelector(".bag-close");
+
+    closeButton.addEventListener("click", function () {
+      popup.remove();
+    });
+
+    const checkoutButton = popup.querySelector(".bag-checkout");
+
+    checkoutButton.addEventListener("click", function () {
+      alert("Checkout coming soon.");
+    });
+  });
+}
