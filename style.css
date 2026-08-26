@@ -558,3 +558,92 @@ h1 {
 .bag-checkout:hover {
   background: #333;
 }
+/* PRODUCT MODAL */
+
+.product-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.product-modal.active {
+  display: flex;
+}
+
+.product-box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #111;
+  color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.close-product {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.product-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  opacity: 0.7;
+}
+
+.product-box h2 {
+  font-size: 30px;
+  margin: 15px 0;
+}
+
+.product-price {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.product-description {
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.sizes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.sizes button {
+  padding: 10px 16px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #777;
+  cursor: pointer;
+}
+
+.sizes button.active {
+  background: #fff;
+  color: #000;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+}
