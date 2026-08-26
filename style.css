@@ -170,7 +170,11 @@ body {
 
   cursor: pointer;
 }
-
+.sizes button.active {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
 .sizes button:hover {
   background: #111;
   color: white;
