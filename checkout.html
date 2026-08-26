@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>VÉLORA — Checkout</title>
 
@@ -37,7 +41,7 @@
     .label {
       font-size: 10px;
       letter-spacing: 4px;
-      opacity: .6;
+      opacity: 0.6;
       margin-bottom: 12px;
     }
 
@@ -64,6 +68,13 @@
 
     .price {
       font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .size {
+      font-size: 14px;
+      color: #aaa;
+      letter-spacing: 2px;
     }
 
     input,
@@ -74,33 +85,56 @@
 
       background: #151515;
       border: 1px solid #333;
-      color: white;
 
+      color: white;
       outline: none;
+
       font-size: 14px;
     }
 
+    input:focus,
+    textarea:focus {
+      border-color: #777;
+    }
+
     textarea {
-      height: 100px;
+      height: 110px;
       resize: none;
     }
 
-    .order-btn {
+    button {
       width: 100%;
       padding: 17px;
-
       border: none;
-      background: white;
-      color: black;
+      cursor: pointer;
 
       font-size: 12px;
       letter-spacing: 3px;
+    }
 
-      cursor: pointer;
+    .order-btn {
+      background: white;
+      color: black;
+      margin-bottom: 10px;
     }
 
     .order-btn:hover {
       background: #ddd;
+    }
+
+    .pay-btn {
+      background: white;
+      color: black;
+      margin-bottom: 10px;
+    }
+
+    .paid-btn {
+      background: white;
+      color: black;
+    }
+
+    button:hover {
+      opacity: 0.85;
     }
 
     .back {
@@ -113,6 +147,36 @@
       font-size: 12px;
       letter-spacing: 2px;
     }
+
+    .message {
+      margin-top: 20px;
+      padding: 15px;
+      display: none;
+
+      border: 1px solid #333;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 20px;
+      }
+
+      .checkout {
+        margin: 20px auto;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .product h2 {
+        font-size: 27px;
+      }
+
+    }
   </style>
 </head>
 
@@ -120,11 +184,20 @@
 
   <main class="checkout">
 
-    <div class="logo">VÉLORA</div>
+    <div class="logo">
+      VÉLORA
+    </div>
 
-    <p class="label">SECURE CHECKOUT</p>
+    <p class="label">
+      SECURE CHECKOUT
+    </p>
 
-    <h1>Your Order</h1>
+    <h1>
+      Your Order
+    </h1>
+
+
+    <!-- PRODUCT -->
 
     <div class="product">
 
@@ -132,11 +205,24 @@
         Loading...
       </h2>
 
-      <p class="price" id="productPrice">
+      <p
+        class="price"
+        id="productPrice"
+      >
         ₹0
       </p>
 
+      <p
+        class="size"
+        id="productSize"
+      >
+        SIZE: —
+      </p>
+
     </div>
+
+
+    <!-- CUSTOMER DETAILS -->
 
     <input
       type="text"
@@ -155,93 +241,407 @@
       placeholder="Delivery Address"
     ></textarea>
 
-    <button class="order-btn" id="orderBtn">
+
+    <!-- PLACE ORDER -->
+
+    <button
+      class="order-btn"
+      id="orderBtn"
+    >
       PLACE ORDER
     </button>
-<button type="button" class="order-btn" id="payBtn">
-PAY NOW <span id="payAmount">₹0</span>
-</button><button type="button" class="order-btn" id="paidBtn">
-  I HAVE PAID - SEND ORDER
-</button>
-    <a href="index.html" class="back">
+
+
+    <!-- PAY NOW -->
+
+    <button
+      class="pay-btn"
+      id="payBtn"
+    >
+      PAY NOW ₹<span id="payAmount">0</span>
+    </button>
+
+
+    <!-- PAID -->
+
+    <button
+      class="paid-btn"
+      id="paidBtn"
+    >
+      I HAVE PAID — SEND ORDER
+    </button>
+
+
+    <div
+      class="message"
+      id="message"
+    ></div>
+
+
+    <a
+      href="index.html"
+      class="back"
+    >
       ← BACK TO SHOP
     </a>
 
   </main>
 
+
   <script>
 
-const params = new URLSearchParams(window.location.search);
+    /* =========================
+       GET PRODUCT INFORMATION
+       ========================= */
 
-const productName = params.get("name");
-const productPrice = params.get("price");
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
 
-if (productName && productPrice) {
-  document.getElementById("productName").textContent = productName;
-  document.getElementById("productPrice").textContent = productPrice;
-}
-    
-    document.getElementById("orderBtn")
-      .addEventListener("click", function () {
 
-        const name =
-          document.getElementById("customerName").value;
+    let productName =
+      params.get("name");
 
-        const phone =
-          document.getElementById("phone").value;
+    let productPrice =
+      params.get("price");
 
-        const address =
-          document.getElementById("address").value;
+    let productSize =
+      params.get("size");
 
-        if (!name || !phone || !address) {
 
-          alert("Please fill all details.");
+    /* =========================
+       LOCAL STORAGE FALLBACK
+       ========================= */
 
-          return;
+    const savedProduct =
+      localStorage.getItem(
+        "veloraProduct"
+      );
+
+
+    if (
+      (!productName || !productPrice) &&
+      savedProduct
+    ) {
+
+      try {
+
+        const product =
+          JSON.parse(savedProduct);
+
+        productName =
+          product.name;
+
+        productPrice =
+          product.price;
+
+        productSize =
+          product.size;
+
+      } catch (error) {
+
+        console.log(
+          "Saved product could not be read."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       DEFAULT VALUES
+       ========================= */
+
+    if (!productName) {
+      productName =
+        "Midnight Elegance";
+    }
+
+
+    if (!productPrice) {
+      productPrice =
+        "₹4,999";
+    }
+
+
+    if (!productSize) {
+      productSize =
+        "Not selected";
+    }
+
+
+    /* =========================
+       SHOW PRODUCT
+       ========================= */
+
+    document
+      .getElementById("productName")
+      .textContent =
+      productName;
+
+
+    document
+      .getElementById("productPrice")
+      .textContent =
+      productPrice;
+
+
+    document
+      .getElementById("productSize")
+      .textContent =
+      "SIZE: " +
+      productSize;
+
+
+    /* =========================
+       PAYMENT AMOUNT
+       ========================= */
+
+    const amount =
+      productPrice
+        .replace(/[₹,\s]/g, "")
+        .replace(/[^0-9.]/g, "");
+
+
+    document
+      .getElementById("payAmount")
+      .textContent =
+      amount || "0";
+
+
+    /* =========================
+       CUSTOMER MESSAGE
+       ========================= */
+
+    function getCustomerDetails() {
+
+      const name =
+        document
+          .getElementById("customerName")
+          .value
+          .trim();
+
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
+      const address =
+        document
+          .getElementById("address")
+          .value
+          .trim();
+
+
+      return {
+        name,
+        phone,
+        address
+      };
+
+    }
+
+
+    function validateDetails() {
+
+      const details =
+        getCustomerDetails();
+
+
+      if (
+        !details.name ||
+        !details.phone ||
+        !details.address
+      ) {
+
+        alert(
+          "Please fill all details."
+        );
+
+        return null;
+
+      }
+
+
+      return details;
+
+    }
+
+
+    function createOrderMessage() {
+
+      const details =
+        validateDetails();
+
+
+      if (!details) {
+        return null;
+      }
+
+
+      const message =
+
+        "🛍️ VÉLORA NEW ORDER\n\n" +
+
+        "Product: " +
+        productName +
+        "\n" +
+
+        "Price: " +
+        productPrice +
+        "\n" +
+
+        "Size: " +
+        productSize +
+        "\n\n" +
+
+        "Customer: " +
+        details.name +
+        "\n" +
+
+        "Phone: " +
+        details.phone +
+        "\n" +
+
+        "Address: " +
+        details.address;
+
+
+      return message;
+
+    }
+
+
+    /* =========================
+       WHATSAPP NUMBER
+       ========================= */
+
+    const whatsappNumber =
+      "919030779918";
+
+
+    /* =========================
+       PLACE ORDER
+       ========================= */
+
+    document
+      .getElementById("orderBtn")
+      .addEventListener(
+        "click",
+        function () {
+
+          const message =
+            createOrderMessage();
+
+
+          if (!message) {
+            return;
+          }
+
+
+          const whatsappURL =
+            "https://wa.me/" +
+            whatsappNumber +
+            "?text=" +
+            encodeURIComponent(
+              message
+            );
+
+
+          window.location.href =
+            whatsappURL;
+
         }
+      );
 
-  const message =
-  "🛍️ VÉLORA NEW ORDER\n\n" +
-  "Product: " + productName + "\n" +
-  "Price: " + productPrice + "\n\n" +
-  "Customer: " + name + "\n" +
-  "Phone: " + phone + "\n" +
-  "Address: " + address;
 
-const whatsappURL =
-  "https://wa.me/919030779918?text=" +
-  encodeURIComponent(message);
-        
-document.getElementById("payBtn").addEventListener("click", function () {
+    /* =========================
+       PAY NOW
+       ========================= */
 
-  const amount = productPrice
-    .replace("₹", "")
-    .replace(",", "");
+    document
+      .getElementById("payBtn")
+      .addEventListener(
+        "click",
+        function () {
 
-  const upiURL =
-    "upi://pay?pa=9030779918@ybl" +
-    "&pn=VÉLORA" +
-    "&am=" + encodeURIComponent(amount) +
-    "&cu=INR";
+          const details =
+            validateDetails();
 
-  window.location.href = upiURL;
 
-});document.getElementById("paidBtn").addEventListener("click", function () {
+          if (!details) {
+            return;
+          }
 
-  const message =
-    "🛍️ VÉLORA PAYMENT ORDER\n\n" +
-    "Product: " + productName + "\n" +
-    "Price: " + productPrice + "\n\n" +
-    "Customer: " + name + "\n" +
-    "Phone: " + phone + "\n" +
-    "Address: " + address;
 
-  const whatsappURL =
-    "https://wa.me/919030779918?text=" +
-    encodeURIComponent(message);
+          const upiURL =
+            "upi://pay" +
 
-  window.location.href = whatsappURL;
-});
+            "?pa=9030779918@ybl" +
+
+            "&pn=VELORA" +
+
+            "&am=" +
+            encodeURIComponent(
+              amount
+            ) +
+
+            "&cu=INR";
+
+
+          window.location.href =
+            upiURL;
+
+        }
+      );
+
+
+    /* =========================
+       I HAVE PAID
+       ========================= */
+
+    document
+      .getElementById("paidBtn")
+      .addEventListener(
+        "click",
+        function () {
+
+          const message =
+            createOrderMessage();
+
+
+          if (!message) {
+            return;
+          }
+
+
+          const paymentMessage =
+
+            "💰 VÉLORA PAYMENT\n\n" +
+
+            message;
+
+
+          const whatsappURL =
+            "https://wa.me/" +
+            whatsappNumber +
+            "?text=" +
+            encodeURIComponent(
+              paymentMessage
+            );
+
+
+          window.location.href =
+            whatsappURL;
+
+        }
+      );
+
+
   </script>
 
+</body>
 </html>
