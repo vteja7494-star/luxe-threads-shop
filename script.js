@@ -58,7 +58,21 @@ document.addEventListener("DOMContentLoaded", function () {
   closeButton.addEventListener("click", function () {
     modal.classList.remove("active");
   });
+// SIZE SELECTION
 
+const sizeButtons = modal.querySelectorAll(".sizes button");
+
+sizeButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+
+    sizeButtons.forEach(function (btn) {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+  });
+});
 /* BUY NOW */
 
 buyButton.addEventListener("click", function () {
