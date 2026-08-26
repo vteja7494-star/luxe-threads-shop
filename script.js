@@ -47,7 +47,70 @@ const modal = document.getElementById("productModal");
     };
 
   });
+/* SEARCH */
 
+if (searchButton) {
+  searchButton.addEventListener("click", function () {
+
+    const searchBox = document.createElement("div");
+    searchBox.className = "search-popup";
+
+    searchBox.innerHTML = `
+      <button class="search-close">×</button>
+
+      <h2>SEARCH</h2>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+      >
+
+      <div id="searchResults"></div>
+    `;
+
+    document.body.appendChild(searchBox);
+
+    const input = document.getElementById("searchInput");
+    const results = document.getElementById("searchResults");
+
+    input.addEventListener("input", function () {
+
+      const value = input.value.toLowerCase().trim();
+
+      results.innerHTML = "";
+
+      if (!value) return;
+
+      const matches = products.filter(function (product) {
+        return product.name.toLowerCase().includes(value);
+      });
+
+      if (matches.length === 0) {
+        results.innerHTML = "<p>No products found.</p>";
+        return;
+      }
+
+      matches.forEach(function (product) {
+
+        const item = document.createElement("div");
+
+        item.innerHTML = `
+          <strong>${product.name}</strong>
+          <p>${product.price}</p>
+        `;
+
+        results.appendChild(item);
+      });
+    });
+
+    searchBox
+      .querySelector(".search-close")
+      .addEventListener("click", function () {
+        searchBox.remove();
+      });
+  });
+}
 
   /* VIEW DETAILS */
 
